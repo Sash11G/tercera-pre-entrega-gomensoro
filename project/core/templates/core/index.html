@@ -14,22 +14,86 @@
         <link href="{% static 'core/css/styles.css' %}" rel="stylesheet" />
     </head>
     <body>
+        <!-- NAVBAR -->
         {% include 'core/navbar.html' %}
+
         <!-- Header - set the background image for the header in the line below-->
-        <header class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900')">
-            <div class="text-center my-5">
+        
+        <header class="py-5 position-relative">
+            <div class="video-container">
+                <video autoplay muted loop id="myVideo">
+                    <source src="{% static 'core/img/waves_video.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        
+            <div class="text-center my-5 position-absolute top-50 start-50 translate-middle">
                 <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/ying.png' %}" alt="Profile Picture" width="300" height="">
                 <h1 class="text-white fs-3 fw-bolder">Wellness App</h1>
                 <p class="text-white-50 mb-0">Mastering Yourself is True Power</p>
             </div>
         </header>
+        
+        <style>
+            .video-container {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+            }
+        
+            video {
+                width: 100%;
+                height: auto;
+                position: absolute;
+                object-fit: cover;
+            }
+        
+            .position-absolute {
+                position: absolute;
+            }
+        
+            .top-50 {
+                top: 50%;
+            }
+        
+            .start-50 {
+                left: 50%;
+            }
+        
+            .translate-middle {
+                transform: translate(-50%, -50%);
+            }
+        </style>
+            
+
+
+            
+        </header>
         <!-- Content section-->
+
+        {% block contenido1 %}
+
         <section class="py-5">
             <div class="container my-5">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                        <h2>Full Width Backgrounds</h2>
-                        <p class="lead">A single, lightweight helper class allows you to add engaging, full width background images to sections of your page.</p>
+                        <h2>Taoistic Approach</h2>
+                        <p class="lead"><br>
+                            
+                            In the pursuit of learning, every day something is acquired.<br>
+                            In the pursuit of Tao, every day something is dropped.<br>
+                            <br>
+                            Less and less is done<br>
+                            Until non-action is achieved.<br>
+                            When nothing is done, nothing is left undone.<br>
+                            <br>
+                            The world is ruled by letting things take their course.<br>
+                            It cannot be ruled by interfering.<br>
+                            <br>
+                            Tao Te Ching, Chapter 48.
+                            <br><br>
+                        </p>
                         <p class="mb-0">Embarking on a transformative journey guided by timeless principles can offer profound healing and renewal to the human experience. <br><br>As one delves into the ancient wisdom, they discover the art of effortless action, 
                             encouraging a harmonious flow with the natural rhythms of life. Simultaneously, the transformation extends to embracing gradual shifts in diet, recognizing food as a source of vitality and balance. <br><br>By adopting a perspective of 
                             simplicity and mindful consumption, individuals can reconnect with the innate wisdom of their bodies. Regular movement mixed with moments of stillness can be very beneficial. As one increasingly alignins with the natural patterns of day and night, 
@@ -39,36 +103,35 @@
                 </div>
             </div>
         </section>
+                    
+
+
+
+        {% endblock %}
+
+
         <!-- Image element - set the background image for the header in the line below-->
         <div class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
             <!-- Put anything you want here! The spacer below  for demo purposes!-->
             <div style="height: 20rem"></div>
         </div>
-        <!-- Content section-->
-        <section class="py-5">
-            <div class="container my-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h2>Engaging Background Images</h2>
-                        <p class="lead">The background images used in this template are sourced from Unsplash and are open source and free to use.</p>
-                        <p class="mb-0">I can't tell you how many people say they were turned off from science because of a science teacher that completely sucked out all the inspiration and enthusiasm they had for the course.</p>
-                    </div>
-                </div>
+
+
+        {% block contenido2 %}
+
+        <div class="container mt-5">
+            <div class="row">
+                {% include 'core/cards.html' with titulo="Tarjeta 1"%}
+                {% include 'core/cards.html' with titulo="Tarjeta 2"%}
+                {% include 'core/cards.html' with titulo="Tarjeta 3"%}
+                {% include 'core/cards.html' with titulo="Tarjeta 4"%}
+                {% include 'core/cards.html' with titulo="Tarjeta 5"%}
+                
+                <!-- Add more cards as needed -->
+        
             </div>
-            
-            <!-- Cards -->
-            <div class="container mt-5">
-                <div class="row">
-                    {% include 'core/cards.html' with titulo="Tarjeta 1"%}
-                    {% include 'core/cards.html' with titulo="Tarjeta 2"%}
-                    {% include 'core/cards.html' with titulo="Tarjeta 3"%}
-                    {% include 'core/cards.html' with titulo="Tarjeta 4"%}
-                    {% include 'core/cards.html' with titulo="Tarjeta 5"%}
-                    
-                    <!-- Add more cards as needed -->
-            
-                </div>
-            </div>
+        </div>
+        {% endblock %}
 
         </section>
         <!-- Footer-->

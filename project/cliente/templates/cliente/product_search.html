@@ -1,0 +1,14 @@
+{% extends 'core/index.html' %}
+
+
+
+
+{% block contenido1 %}
+    <body>
+        <form method="GET" action="{% url 'cliente:search-results' %}">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <button type="submit">Search</button>
+        </form>
+    </body>
+{% endblock %}

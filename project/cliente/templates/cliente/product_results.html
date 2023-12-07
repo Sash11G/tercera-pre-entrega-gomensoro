@@ -1,0 +1,18 @@
+{% extends "core/index.html" %}
+
+
+
+
+{% block contenido1 %}
+    <h1>Search Results for "{{ search_query }}"</h1>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>{{ product.nombre }} - {{ product.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products found for "{{ search_query }}".</p>
+    {% endif %}
+{% endblock %}
