@@ -16,3 +16,8 @@ class ProductForm(forms.ModelForm):
 
 class ProductBuscarFormulario(forms.Form):
     product = forms.CharField()
+
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = models.Teacher
+        fields = ["nombre", "apellido", "skill"]

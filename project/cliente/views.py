@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import ClientForm, ProductForm, ProductBuscarFormulario
-from .models import Client, Product
+from django.http import HttpResponse
+from .forms import ClientForm, ProductForm, ProductBuscarFormulario, TeacherForm
+from .models import Client, Product, Teacher
 
 
 def home(request):
@@ -43,6 +44,25 @@ def create_product(request):
         myForm = ProductForm()
 
         return render(request, "cliente/product_form.html", {"myForm": myForm})
+    
+
+def create_teacher(request):
+
+    if request.method == 'POST':
+        myForm = TeacherForm(request.POST)
+
+        if myForm.is_valid():
+            data = myForm.cleaned_data
+            profesor = Teacher(nombre=data["nombre"], apellido=data["apellido"], skill=data["skill"])
+            profesor.save()
+
+            return redirect("core:index")
+        return render(request, "cliente/teacher_form.html", {"myForm": myForm})
+    else:
+
+        myForm = TeacherForm()
+
+        return render(request, "cliente/teacher_form.html", {"myForm": myForm})
 
 
 
@@ -71,15 +91,15 @@ def search_product(request):
 
 def display_search_results(request):
     if request.method == "GET":
-        # Retrieve the search query from the URL parameters
+       
         search_query = request.GET.get('product', '')
         
-        # Perform the search based on the query
+       
         filtered_products = Product.objects.filter(nombre__icontains=search_query)
 
-        # Pass the search results to the template
+        
         context = {"products": filtered_products, "search_query": search_query}
         return render(request, "cliente/product_results.html", context)
     else:
-        # Handle other HTTP methods if needed
-        pass
+        
+        return HttpResponse("Method not allowed", status=405)
