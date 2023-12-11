@@ -104,4 +104,10 @@ def display_search_results(request):
         
         return HttpResponse("Method not allowed", status=405)
     
-# def view_teacher(request):
+def view_teacher(request):
+    teachers_all = []
+    for teacher in Teacher.objects.all():
+        teachers_all.append(teacher)
+
+    context = {"teachers": teachers_all}
+    return render(request, "cliente/teachers_view.html", context)

@@ -25,23 +25,24 @@
             <div style="height: 20rem"></div>
         </div>
 
-        <!-- Cards -->
-
-        <div class="container mt-5">
-            <div class="row">
-                {% include 'core/cards.html' with titulo="Tarjeta 1"%}
-                {% include 'core/cards.html' with titulo="Tarjeta 2"%}
-                {% include 'core/cards.html' with titulo="Tarjeta 3"%}
-                {% include 'core/cards.html' with titulo="Tarjeta 4"%}
-                {% include 'core/cards.html' with titulo="Tarjeta 5"%}
-                
-                <!-- Add more cards as needed -->
-        
-            </div>
-        </div>
-        
+ 
 
         {% block contenido2 %}
+               <!-- Cards -->
+
+               <div class="container mt-5">
+                <div class="row">
+                    {% include 'core/cards.html' with titulo="Tarjeta 1"%}
+                    {% include 'core/cards.html' with titulo="Tarjeta 2"%}
+                    {% include 'core/cards.html' with titulo="Tarjeta 3"%}
+                    {% include 'core/cards.html' with titulo="Tarjeta 4"%}
+                    {% include 'core/cards.html' with titulo="Tarjeta 5"%}
+                    
+                    <!-- Add more cards as needed -->
+            
+                </div>
+            </div>
+            
 
         {% endblock %}
 
