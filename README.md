@@ -20,7 +20,7 @@ Este proyecto utiliza Django para gestionar información relacionada con tres cl
 
 4. **Formulario de Búsqueda de Productos:**
    - **URL:** `cliente/search-product/`
-   - Este formulario permite buscar y mostrar información detallada sobre productos almacenados en la base de datos.
+   - Este formulario permite buscar y mostrar información detallada sobre productos almacenados en la base de datos usando el nombre del producto que se quiere buscar.
 
 ## Instrucciones de Uso
 
