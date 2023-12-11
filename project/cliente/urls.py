@@ -10,6 +10,8 @@ urlpatterns = [
     path('search_product/', views.search_product, name="search-product"),
     path('search_results/', views.display_search_results, name='search-results'),
     path('create_teacher/', views.create_teacher, name='create-teacher'),
+    # path('view_teacher/', views.view_teacher, name='view-teacher'),
+    
     
     
     

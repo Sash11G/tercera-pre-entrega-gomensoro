@@ -103,3 +103,5 @@ def display_search_results(request):
     else:
         
         return HttpResponse("Method not allowed", status=405)
+    
+# def view_teacher(request):
