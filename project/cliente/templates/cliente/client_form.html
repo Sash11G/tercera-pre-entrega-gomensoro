@@ -2,37 +2,31 @@
 
 
     
-
-
-{% block contenido1 %}
-
+{% block header %}
     
-<!DOCTYPE html>
-<html lang="en">
+{% endblock header %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Form Title</title>
 
+{% block style %}
+    
     <style>
         body {
-
+            
             color: #000000; /* White text */
-
+            
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-
+        
         h2 {
             color: #008080; /* Medium Aquamarine Green for title */
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px; /* Adjust the font size as needed */
         }
-
+        
         form {
             width: 300px;
             padding: 20px;
@@ -41,7 +35,7 @@
             margin: 20px auto;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle box shadow */
         }
-
+        
         input[type="submit"] {
             background-color: #008080; /* Medium Aquamarine Green */
             color: #fff; /* White text */
@@ -51,12 +45,16 @@
             cursor: pointer;
             width: 100%;
         }
-
+        
         input[type="submit"]:hover {
             background-color: #006666; /* Darker Aquamarine Green on hover */
         }
     </style>
 </head>
+{% endblock%}
+
+{% block contenido1 %}
+
 
 <body>
     <form action="{% url 'cliente:create-user' %}" method="POST">

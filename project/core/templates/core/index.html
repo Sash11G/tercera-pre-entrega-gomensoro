@@ -1,6 +1,6 @@
 {% load static %}
 
-{% load static %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +20,8 @@
         {% include 'core/navbar.html' %}
 
         <!-- Header - set the background image for the header in the line below-->
+        {% block header %}
+            
         
         <header class="py-5 position-relative">
             <div class="video-container">
@@ -29,16 +31,22 @@
                 </video>
             </div>
         
-            <div class="text-center my-5 position-absolute top-50 start-50 translate-middle">
+            <div class="text-center my-5" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
                 <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/ying.png' %}" alt="Profile Picture" width="300" height="">
                 <h1 class="text-white fs-3 fw-bolder">Wellness App</h1>
                 <p class="text-white-50 mb-0">Mastering Yourself is True Power</p>
             </div>
         </header>
+
+        {% endblock header %}
+
+
         {% block style %}
             
         
         <style>
+            
+
             .video-container {
                 position: relative;
                 width: 100%;
