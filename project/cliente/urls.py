@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 app_name = "cliente"
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('search_results/', views.display_search_results, name='search-results'),
     path('create_teacher/', views.create_teacher, name='create-teacher'),
     path('view_teacher/', views.view_teacher, name='view-teacher'),
+    path('teacher/<int:pk>/delete/', views.DeleteTeacher.as_view(), name='delete-teacher'),
     
     
     

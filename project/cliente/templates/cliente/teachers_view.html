@@ -5,23 +5,42 @@
 {% block contenido1 %}
     
 <div class="content-container">
-    <h2>Teachers</h2>
+    <h1 style="font-size: 60px; color: #333; font-weight: bold; text-align: center; margin-bottom: 20px;">Teachers</h1>
+    <a href="{% url 'cliente:create-teacher' %}">
+        <button style="margin-bottom: 20px;">Create Teacher!</button>
+    </a>
+
+    {% for teacher in teachers %}
+    <div class="item-container">
+        <div class="profile-picture">
+            </a>
+            {% if teacher.foto_perfil %}
+                <img src="{{ teacher.foto_perfil.url }}" alt="{{ teacher.nombre }}">
+                
+            {% else %}
+                <p>No picture available</p>
+            {% endif %}
+        </div>
+        <div class="item-details">
+            <!-- Add other fields you want to display -->
+            <li><strong>Nombre:</strong> {{ teacher.nombre }}  {{ teacher.apellido }}</li>
+            <li><strong>Skill:</strong> {{ teacher.skill }}</li>
+            
+            <!-- Delete button with link to delete view -->
+            <p>Teacher PK: {{ teacher.pk }}</p>
+            <form method="get" action="{% url 'cliente:delete-teacher' pk=teacher.pk %}">
+                {% csrf_token %}
+                <input type="submit" value="Delete" style="margin-bottom: 20px;">
+
+
+            
+        </div>
+    </div>
+{% endfor %}
     
-    {% if teachers %}
-    <ul>
-        {% for teacher in teachers %}
-        <li>{{ teacher.nombre }} {{ teacher.apellido }} ({{ teacher.skill }})</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No available Teachers</p>
-    {% endif %}
-</div>
-
-
 
 {% endblock contenido1 %}
 
 {% block contenido2 %}
-    
+
 {% endblock contenido2 %}

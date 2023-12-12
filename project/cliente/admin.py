@@ -9,7 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'precio')
 
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'apellido', 'skill')
+    list_display = ('id', 'nombre', 'apellido', 'skill', 'foto_perfil')
 
 admin.site.register(models.Client, ClientAdmin)
 admin.site.register(models.Teacher, TeacherAdmin)

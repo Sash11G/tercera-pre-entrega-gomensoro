@@ -57,7 +57,7 @@
 </head>
 
 <body>
-    <form action="{% url 'cliente:create-teacher' %}" method="POST">
+    <form action="{% url 'cliente:create-teacher' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>Create Teacher</h2>
         {{ myForm.as_p }}

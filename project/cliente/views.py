@@ -2,10 +2,16 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ClientForm, ProductForm, ProductBuscarFormulario, TeacherForm
 from .models import Client, Product, Teacher
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from django.conf import settings
 
 
 def home(request):
     return render(request, "cliente/index.html")
+
+def render_form(request, form, template_name):
+    return render(request, template_name, {"myForm": form})
 
 def create_client(request):
 
@@ -14,16 +20,15 @@ def create_client(request):
 
         if myForm.is_valid():
             data = myForm.cleaned_data
-            profesor = Client(nombre=data["nombre"], apellido=data["apellido"], email=data["email"])
-            profesor.save()
+            client = Client(nombre=data["nombre"], apellido=data["apellido"], email=data["email"])
+            client.save()
 
             return redirect("core:index")
-        return render(request, "cliente/client_form.html", {"myForm": myForm})
+        else:
+            return render_form(request, myForm, "cliente/client_form.html")
     else:
-
         myForm = ClientForm()
-
-        return render(request, "cliente/client_form.html", {"myForm": myForm})
+        return render_form(request, myForm, "cliente/client_form.html")
     
 
     
@@ -38,31 +43,47 @@ def create_product(request):
             product.save()
 
             return redirect("core:index")
-        return render(request, "cliente/product_form.html", {"myForm": myForm})
+
+    
+        else:
+            return render_form(request, myForm, "cliente/product_form.html")
     else:
-
-        myForm = ProductForm()
-
-        return render(request, "cliente/product_form.html", {"myForm": myForm})
+        myForm = ClientForm()
+        return render_form(request, myForm, "cliente/product_form.html")
     
 
 def create_teacher(request):
 
     if request.method == 'POST':
-        myForm = TeacherForm(request.POST)
+        myForm = TeacherForm(request.POST, request.FILES)
 
         if myForm.is_valid():
             data = myForm.cleaned_data
-            profesor = Teacher(nombre=data["nombre"], apellido=data["apellido"], skill=data["skill"])
-            profesor.save()
 
-            return redirect("core:index")
-        return render(request, "cliente/teacher_form.html", {"myForm": myForm})
+            teacher = Teacher(nombre=data["nombre"], apellido=data["apellido"], skill=data["skill"], foto_perfil=data["foto_perfil"])
+            teacher.save()
+
+            return redirect("cliente:view-teacher")
+
+    
+        else:
+            return render_form(request, myForm, "cliente/teacher_form.html")
     else:
-
         myForm = TeacherForm()
+        return render_form(request, myForm, "cliente/teacher_form.html")
+    
 
-        return render(request, "cliente/teacher_form.html", {"myForm": myForm})
+class DeleteTeacher(DeleteView):
+    model = Teacher
+    template_name = 'cliente/teacher_confirm_delete.html'  # HTML template for delete confirmation
+    context_object_name = 'object'
+
+    success_url = reverse_lazy('cliente:view-teacher')  # Redirect to the list view after deletion
+
+    def delete(self, request, *args, **kwargs):
+        print("Delete method called")
+        response = super().delete(request, *args, **kwargs)
+        return response
 
 
 
@@ -105,9 +126,9 @@ def display_search_results(request):
         return HttpResponse("Method not allowed", status=405)
     
 def view_teacher(request):
-    teachers_all = []
-    for teacher in Teacher.objects.all():
-        teachers_all.append(teacher)
+    teachers_all = Teacher.objects.all()
 
-    context = {"teachers": teachers_all}
+    context = {"teachers": teachers_all, "media_root": settings.MEDIA_ROOT}
     return render(request, "cliente/teachers_view.html", context)
+
+

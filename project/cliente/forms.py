@@ -20,4 +20,4 @@ class ProductBuscarFormulario(forms.Form):
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = models.Teacher
-        fields = ["nombre", "apellido", "skill"]
+        fields = ["nombre", "apellido", "skill", "foto_perfil"]
