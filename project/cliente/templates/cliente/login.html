@@ -1,10 +1,7 @@
 {% extends 'core/index.html' %}
 
-
-
 {% block contenido1 %}
 
-    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,28 +53,20 @@
     </style>
 </head>
 
-<body>
-    <form action="{% url 'cliente:create-teacher' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h2>Create Teacher</h2>
-
-        {% for field in myForm %}
-        <p>
-            {{ field.label_tag }}<br>
-            {{ field }}
-
-            
-        {% endfor %}
-        
-        </p>
-    </form>
-</body>
-
-</html>
-
     
-{% endblock %}
+    <body>
+        <form action="/cliente/login" method="POST">
+            {% csrf_token %}
+            <h2>Login</h2>
+
+            {{ form.as_p }}
+
+            <input type="submit" value="Log In">
+        </form>
+    </body>
+        
+{% endblock contenido1 %}
 
 {% block contenido2 %}
     
-{% endblock  %}
+{% endblock contenido2 %}

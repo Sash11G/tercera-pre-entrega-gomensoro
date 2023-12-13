@@ -1,7 +1,12 @@
+{% load static %}
+
+
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a style=margin-left:0 class="navbar-brand" href="#!">Wellness App</a>
+        <a class="navbar-brand" href="#!">
+            <img src="{% static '\core\img\wellnesslogo.png' %}" alt="Wellness Haven Logo" style="width: 200px; height: auto;">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -11,9 +16,17 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                 
-                <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'cliente:create-user' %}">Register</a></li>
+
                 
+                {% if user.is_authenticated %}
+                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:logout' %}">Logout</a></li>
+                    <span class="navbar-text">{{ user.username }}</span>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:registro' %}">Sign Up</a></li>
+                    
+                {% endif %}
                 
             </ul>
         </div>

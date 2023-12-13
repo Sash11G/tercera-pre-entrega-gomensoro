@@ -1,13 +1,8 @@
 {% extends 'core/index.html' %}
-
+{% load static %}
 
 {% block contenido1 %}
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Wellness App</title>
-    </head>
-
+    
 
 
     <style>
@@ -61,33 +56,49 @@
         }
     </style>
 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+
 
     <body>
-        <header>
-            <h1>Wellness App</h1>
-        </header>
 
         <section>
-            <h2>Meet Our Expert Teachers</h2>
-            <p>Discover a curated selection of passionate instructors, each dedicated to their unique field of expertise. From meditation and exercise to nutrition and mindfulness, our teachers are here to support you on your path to wellness. Whether you're a beginner or an experienced enthusiast, our diverse team offers a range of classes and resources tailored to meet your individual needs.</p>
+            <h1 style="text-align: center;">
+                <img src="{% static '\core\img\about_logo.png' %}" alt="Wellness Haven Title Image" style="width: 400px; height: auto;">
+            </h1><br>
 
-            <h2>Explore Holistic Wellness</h2>
-            <p>Immerse yourself in a holistic approach to well-being. Our platform goes beyond conventional fitness regimes, offering a comprehensive range of wellness practices. Explore meditation sessions to calm the mind, engage in invigorating exercise routines, and learn about nutrition that nourishes your body from the inside out. Whatever your wellness goals, we have the resources to guide you on your journey.</p>
+            
+            <figure style="text-align: center;">
+                <img src="{% static 'core/img/suns_me.png' %}" alt="Your Picture" style="width: 100%; max-width: 450px; border-radius: 10%; margin: 0 auto; display: block;">
+                <figcaption>Master Ju-One - Founder of Wellness Haven</figcaption>
+            </figure>
 
-            <h2>Shop Wellness Products</h2>
-            <p>Enhance your wellness journey with our thoughtfully curated selection of products. Explore our collection of superfoods, exercise gear, and more, all handpicked to support and complement your holistic lifestyle. Each product aligns with our commitment to quality and well-being, empowering you to make mindful choices for a healthier, happier you.</p>
 
-            <h2>Why Choose Your Wellness Website?</h2>
-            <ul>
-                <li>Expert Guidance: Learn from certified teachers who are passionate about your well-being.</li>
-                <li>Holistic Approach: Embrace a well-rounded approach to health that addresses mind, body, and spirit.</li>
-                <li>Curated Products: Shop premium wellness products designed to enhance your journey.</li>
-            </ul>
+            <h3>About Wisdom Haven: A Fusion of Wisdom, Code, and Django</h3>
+            <p>Welcome to Wisdom Haven, curated by Master Ju-One, a Python and Django enthusiast navigating the realms of mind,
+                body, and soul at CoderHouse (Course 47790).</p>
+        
+            <h3>Digital Serenity, Mindful Living</h3>
+            <p>Explore text posts intertwining ancient meditation wisdom, Eastern philosophy, and contemporary science. This blog
+                is a convergence point, where Python and Django coding meet the pursuit of holistic well-being.</p>
+        
+            <h3>Pythonic Journeys to Wellness</h3>
+            <p>Witness the blend of Django-powered code and consciousness, from guided meditation to the science-backed secrets of
+                wellness. Master Ju-One shares insights on a path that fuses timeless philosophies with modern practices.</p>
+        
+            <h3>Join the Wisdom Haven Community</h3>
+            <p>Step into a virtual sanctuary, a space where Django, Python, and wellness enthusiasts converge. Engage in the
+                dialogue, share your journey, and discover the transformative power of the mind-body connection.</p>
+        
+            <p>Welcome to Wisdom Haven, where the code of life meets the coding of Python and Django.</p>
         </section>
+        
 
-        <footer>
-            <p>Embark on a transformative wellness experience with Your Wellness Website. Join our community, prioritize your health, and discover the vibrant, balanced life you deserve. Your well-being is our mission.</p>
-        </footer>
+
+
     </body>
 {% endblock contenido1 %}
 

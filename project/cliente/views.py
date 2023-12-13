@@ -132,3 +132,84 @@ def view_teacher(request):
     return render(request, "cliente/teachers_view.html", context)
 
 
+
+
+
+##### LOGIN #####
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+
+def login_view(request):
+
+    if request.user.is_authenticated:
+        return render(
+            request,
+            "core/inicio.html",
+            {"Message:": f"Welcome {request.user.username}!"}
+        )
+
+    if request.method == "GET":
+        return render(
+            request,
+            "cliente/login.html",
+            {"form": AuthenticationForm()}
+        )
+    else:
+        formulario = AuthenticationForm(request, data=request.POST)
+
+        if formulario.is_valid():
+            informacion = formulario.cleaned_data
+            usuario = informacion["username"]
+            password = informacion["password"]
+
+            modelo = authenticate(username=usuario, password=password)
+            login(request, modelo)
+
+            return render(
+                request,
+                "core/inicio.html",
+                {"Message": f"Welcome {modelo.username}"}
+            )
+        else:
+            return render(
+                request,
+                "core/login.html",
+                {"form": formulario}
+            )
+
+
+def logout_view(request):
+    pass
+
+
+
+from .forms import UserCreationFormulario, UserEditionFormulario
+from django.contrib.auth.views import PasswordChangeView
+
+def registro_view(request):
+
+    if request.method == "GET":
+        return render(
+            request,
+            "cliente/registro.html",
+            {"form": UserCreationFormulario()}
+        )
+    else:
+        formulario = UserCreationFormulario(request.POST)
+        if formulario.is_valid():
+            informacion = formulario.cleaned_data
+            user = informacion["username"]
+            formulario.save()
+
+            return render(
+                request,
+                "core/inicio.html",
+                {"Message": f"User created: {user}"}
+            )
+        else:
+            return render(
+                request,
+                "cliente/registro.html",
+                {"form": formulario}
+            )
