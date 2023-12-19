@@ -5,29 +5,8 @@
 
 {% block contenido1 %}
 
-    <header class="py-5 position-relative">
-        <div class="video-container">
-            <video autoplay muted loop id="myVideo">
-                <source src="{% static 'core/img/waves_video.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-
-        <div class="text-center my-5" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
-            <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/wellness_inicio.png' %}" alt="Profile Picture" width="600" height="">
-            
-            
-        </div>
-    </header>
-
-
-
-
-
-        
-
     <style>
-        
+            
 
         .video-container {
             position: relative;
@@ -61,16 +40,40 @@
     </style>
 
 
+    <header class="py-5 position-relative">
+        <div class="video-container">
+            <video autoplay muted loop id="myVideo">
+                <source src="{% static 'core/img/waves_video.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="text-center my-5" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+            <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/wellness_inicio.png' %}" alt="Profile Picture" width="600" height="">
+            
+            
+        </div>
+    </header>
+
+
+
+
+
+        
+
+
+
         
     </header>
     <!-- Content section-->
 
-
+    {{ message }}
 
     <section class="py-5">
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
+                    
                     <h2>Wisdom Verses</h2>
                     <p class="lead"><br>
                         

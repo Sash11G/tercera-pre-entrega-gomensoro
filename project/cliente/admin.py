@@ -2,16 +2,18 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
-class ClientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'apellido', 'email', )
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'precio')
 
-class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'apellido', 'skill', 'foto_perfil')
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'titulo', 'contenido', 'fecha', 'autor')
 
-admin.site.register(models.Client, ClientAdmin)
-admin.site.register(models.Teacher, TeacherAdmin)
-admin.site.register(models.Product, ProductAdmin)
+class AvatarAdmin(admin.ModelAdmin):
+    list_display = ('user', 'imagen')
+
+admin.site.register(models.BlogPost, BlogAdmin)
+admin.site.register(models.Avatar, AvatarAdmin)
+
+
+
+
 

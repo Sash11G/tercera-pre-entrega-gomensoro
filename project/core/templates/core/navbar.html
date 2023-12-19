@@ -4,24 +4,32 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#!">
+        <a class="navbar-brand" href="{% url 'core:index' %}">
             <img src="{% static '\core\img\wellnesslogo.png' %}" alt="Wellness Haven Logo" style="width: 200px; height: auto;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'cliente:view-teacher' %}">Teachers</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Store</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                
+                <li class="nav-item"><a class="nav-link" href="{% url 'cliente:blog-post-list' %}">Blog</a></li>
+                {% if user.is_authenticated %}
 
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:create-blog-post' %}">Create</a></li> 
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                 
                 {% if user.is_authenticated %}
-                    
                     <li class="nav-item"><a class="nav-link" href="{% url 'cliente:logout' %}">Logout</a></li>
-                    <span class="navbar-text">{{ user.username }}</span>
+                    <li class="nav-item"><a class="nav-link" href="#!">{{ user.username }}</a></li>
+                    
+                    {% if user_avatar %}
+
+                        <a href="#!" class="nav-link">
+                            <img src="{{ user_avatar.imagen.url }}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
+
+                        </a>
+
+                    {% endif %}
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'cliente:login' %}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'cliente:registro' %}">Sign Up</a></li>

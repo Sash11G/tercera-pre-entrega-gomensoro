@@ -1,0 +1,123 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+
+{% block contenido1 %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+
+            box-sizing: border-box;
+        }
+
+        .blog-post-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-post-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-style: bold;
+            margin: 10px 20px 0;
+        }
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 20px 0;
+        }
+
+        .post-content {
+            margin: 10px 20px;
+            color: rgba(169, 169, 169, 0.9);
+        }
+        .read-more-label {
+            color: #007bff; 
+            font-weight: bold; 
+            margin: 10px 20px 0;; 
+        }
+        
+
+
+        .post-meta {
+            color: #888;
+            margin: 0 20px 10px;
+        }
+
+        .no-author {
+            font-style: italic;
+        }
+
+        .post-image {
+            width: 600px;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
+
+    <body>
+    {% if blogposts %}
+        <ul class="blog-post-list">
+            {% for post in blogposts %}
+                <li class="blog-post-container">
+                    <div class="author-info">
+
+                        {% if post.avatar %}
+                            <a href="#!" class="nav-link">
+                                <img src="{{ post.avatar.imagen.url }}" alt="User Avatar" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                                <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                            </a>
+                        {% else %}
+                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" style="height: 40px; width: auto; border-radius: 50%; vertical-align: middle; border: 2px solid black; display: inline-block;  margin: 10px 0 10px 10px;">
+                            <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                        {% endif %}
+                        
+                    </div>
+                    {% if post.post_image %}
+                        <img src="{{ post.post_image.url }}" alt="Blog Post Image" class="post-image">
+                    {% else %}
+                        <p style="margin-left: 20px;" class="no-picture">No picture available</p>
+                    {% endif %}
+                    <h2 class="post-title">{{ post.titulo }}</h2>
+                    <p class="post-content">{{ post.contenido|truncatechars:100 }}</p>
+                    <p class="read-more-label">Read More</p>
+                    <p class="post-meta">
+                        {{ post.fecha }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No blog posts available.</p>
+    {% endif %}
+</body>
+
+
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+
+{% endblock contenido2 %}

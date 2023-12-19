@@ -7,17 +7,19 @@ app_name = "cliente"
 
 urlpatterns = [
     path('', views.home, name="index"),
-    path('create_client/', views.create_client, name="create-user"),
-    path('create_product/', views.create_product, name="create-product"),
-    path('search_product/', views.search_product, name="search-product"),
-    path('search_results/', views.display_search_results, name='search-results'),
-    path('create_teacher/', views.create_teacher, name='create-teacher'),
-    path('view_teacher/', views.view_teacher, name='view-teacher'),
-    path('teacher/<int:pk>/delete/', views.DeleteTeacher.as_view(), name='delete-teacher'),
-     ###### LOGIN
+    path('unauthorized/', views.unauthorized_access_view, name='unauthorized_access'),
+     #### LOGIN ####
     path("registro", views.registro_view, name="registro"),
     path("login", views.login_view, name="login"),
     path("logout", LogoutView.as_view(template_name="cliente/logout.html"), name="logout"),
+    #### BLOG ####
+    path('create_blog_post/', views.create_blog_post, name='create-blog-post'),
+    path('blogposts/', views.blog_post_list, name='blog-post-list'),
+    #### EDITAR USUARIO ####
+    path("editar-perfil", views.editar_perfil_view, name="editar-perfil"),
+    path("create_avatar", views.crear_avatar_view, name="crear-avatar"),
+    path('<int:user_id>/password/', views.change_password, name='change-password'),
+    
 ]
     
     

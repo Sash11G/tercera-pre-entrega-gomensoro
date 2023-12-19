@@ -1,32 +1,36 @@
 from django.db import models
 from PIL import Image, ImageOps
-
-class Client(models.Model):
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    email = models.EmailField()
+from django.contrib import admin
+from django.contrib.auth.models import User, AbstractUser
 
 
-class Teacher(models.Model):
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    skill = models.CharField(max_length=30)
-    foto_perfil = models.ImageField(upload_to='uploads/', null=True, blank=True)
+class Category(models.Model):
+    name = models.CharField(max_length=100)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        if self.foto_perfil:
-            max_size = (100, 100)  # Set your desired width and height
-            img = Image.open(self.foto_perfil.path)
-
-            # Resize and maintain aspect ratio using ImageOps
-            img.thumbnail(max_size)
-            img = ImageOps.exif_transpose(img)
-
-            img.save(self.foto_perfil.path)
+    def __str__(self):
+        return self.name
+    
 
 
-class Product(models.Model):
-    nombre = models.CharField(max_length=30)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+
+class Avatar(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.FileField(upload_to="uploads/avatares", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.imagen}"
+    
+
+    
+class BlogPost(models.Model):
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    avatar = models.ForeignKey(Avatar, on_delete=models.SET_NULL, null=True, blank=True)
+    categoria = models.ManyToManyField(Category)
+    post_image = models.ImageField(upload_to='uploads/posts/', null=True, blank=True)
+
+    def __str__(self):
+        return self.titulo
