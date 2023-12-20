@@ -2,7 +2,7 @@ from django.db import models
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.auth.models import User, AbstractUser
-
+from accounts.models import Avatar
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -13,14 +13,6 @@ class Category(models.Model):
 
 
 
-class Avatar(models.Model):
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.FileField(upload_to="uploads/avatares", null=True, blank=True)
-
-    def __str__(self):
-        return f"{self.user} - {self.imagen}"
-    
 
     
 class BlogPost(models.Model):
@@ -34,3 +26,4 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.titulo
+    

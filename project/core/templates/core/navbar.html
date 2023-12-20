@@ -19,7 +19,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:logout' %}">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">{{ user.username }}</a></li>
                     
                     {% if user_avatar %}
@@ -28,11 +28,13 @@
                             <img src="{{ user_avatar.imagen.url }}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
 
                         </a>
-
+                    {% else %}
+                    
+                        <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
                     {% endif %}
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'cliente:registro' %}">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:registro' %}">Sign Up</a></li>
                     
                 {% endif %}
                 
