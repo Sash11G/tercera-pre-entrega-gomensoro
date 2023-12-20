@@ -72,6 +72,16 @@
             box-sizing: border-box;
         }
 
+        .button-container {
+            display: flex;
+        }
+
+        input[type="submit"],
+        .cancel-button {
+            flex: 1; /* Equal width for both buttons */
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
         input[type="submit"] {
             background-color: #008080;
             color: #fff;
@@ -79,19 +89,31 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%;
         }
 
         input[type="submit"]:hover {
             background-color: #006666;
         }
 
+        .cancel-button {
+            background-color: #ccc;
+            color: #000;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cancel-button:hover {
+            background-color: #aaa;
+        }
         .error-message {
             color: red;
             margin-top: 10px;
             text-align: left;
         }
-    </style>
+</style>
 
     <div class="profile-edit-container">
         
@@ -147,7 +169,10 @@
                 {% endif %}
             </div>
 
-            <input type="submit" value="Save Changes"></input>
+            <div class="button-container">
+                <input type="submit" value="Save Changes"></input>
+                <a href="{% url 'core:index' %}" class="cancel-button">Cancel</a>
+            </div>
         </form>
     </div>
 {% endblock contenido1 %}

@@ -6,13 +6,28 @@
 {% block contenido1 %}
 
     <style>
-            
+            header {
+            position: relative;
+        }
 
         .video-container {
             position: relative;
-            width: 100%;
-            height: 60vh;
+            height: 80vh; /* Adjust the height as needed */
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0); /* Optional: Add a semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
         }
 
         video {
@@ -44,18 +59,16 @@
     </style>
 
 
-    <header class="py-5 position-relative">
+    <header>
         <div class="video-container">
             <video autoplay muted loop id="myVideo">
                 <source src="{% static 'core/img/waves_video.mp4' %}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-        </div>
-
-        <div class="text-center my-5" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
-            <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/wellness_inicio.png' %}" alt="Profile Picture" width="600" height="">
             
-            
+            <div class="text-container">
+                <img class="img-fluid rounded-circle mb-4" src="{% static 'core/img/wellness_inicio.png' %}" alt="Profile Picture" width="600" height="">
+            </div>
         </div>
     </header>
 

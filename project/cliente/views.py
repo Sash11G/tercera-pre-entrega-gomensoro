@@ -72,13 +72,14 @@ def create_blog_post(request):
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
         if form.is_valid():
-            # Access form fields using cleaned_data and store in data
             data = form.cleaned_data
-            new_blog_post = BlogPost(titulo=data["titulo"], contenido=data["contenido"], post_image=data["post_image"])
 
-            new_blog_post = form.save(commit=False)
-            new_blog_post.autor = request.user
-            new_blog_post.avatar = Avatar.objects.filter(user=request.user).last()
+            new_blog_post = BlogPost(
+                titulo=data["titulo"],
+                contenido=data["contenido"],
+                post_image=data["post_image"],
+                autor=request.user
+            )
 
             new_blog_post.save()
 
@@ -94,17 +95,19 @@ def create_blog_post(request):
 #     return render(request, 'cliente/blogpost_list.html', context)
 
 
-def blog_post_list(request):
-    blogposts = BlogPost.objects.all()[::-1]
+# def blog_post_list(request):
+#     blog_posts = BlogPost.objects.all()[::-1]
 
-    # Fetch the latest avatar information for each post's author
-    avatar_info = {}
-    for post in blogposts:
-        author = post.autor
-        latest_avatar = Avatar.objects.filter(user=author).last()
-        avatar_info[author.id] = latest_avatar
+#     # Fetch the latest avatar information for each post's author
+#     avatar_info = {}
+#     for post in blog_posts:
+#         author = post.autor
+#         latest_avatar = Avatar.objects.filter(user=author).last()
+#         avatar_info[author.id] = latest_avatar
 
-    return render(request, 'cliente/blogpost_list.html', {'blogposts': blogposts, 'avatar_info': avatar_info})
+
+
+#     return render(request, 'cliente/blogpost_list.html', {'blogposts': blog_posts, 'avatar_info': avatar_info})
 
 # solving if not blogspost ##
 
@@ -131,10 +134,20 @@ def blog_post_list(request):
 
 # #     return render(request, 'cliente/blogpost_form.html', {'form': form})
 
-# # def blog_post_list(request):
-    
-# #     blogposts = BlogPost.objects.all()[::-1]
-    
-    
-# #     context = {"blogposts": blogposts, "media_root": settings.MEDIA_ROOT}
-# #     return render(request, 'cliente/blogpost_list.html', context)
+def blog_post_list(request):
+    # Retrieve all blog posts
+    blog_posts = BlogPost.objects.all()[::-1]
+
+    # Create a list to store tuples of (blog_post, avatar)
+    blog_posts_with_avatars = []
+
+    # Iterate through each blog post
+    for blog_post in blog_posts:
+        avatar = Avatar.objects.filter(user=blog_post.autor).last()
+        blog_posts_with_avatars.append((blog_post, avatar))
+
+    context = {
+        'blog_posts_with_avatars': blog_posts_with_avatars,
+    }
+
+    return render(request, 'cliente/blogpost_list.html', context)

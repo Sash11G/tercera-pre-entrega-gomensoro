@@ -8,8 +8,6 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
-
-            box-sizing: border-box;
         }
 
         .blog-post-list {
@@ -19,6 +17,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+
+        .message-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            margin: 100px auto; /* Center horizontally */
+        }
+
+        .message-text {
+            font-size: 30px;
+            color: #888;
+            margin: 0;
         }
 
         .blog-post-container {
@@ -34,14 +52,19 @@
         }
 
         .author-name {
-            font-style: bold;
-            margin: 10px 20px 0;
+            display: inline-block; 
+            font-weight: bold;
+            margin-left: 10px;
         }
         .author-avatar {
-            width: 40px;
+            width: auto;
             height: 40px;
             border-radius: 50%;
-            margin-right: 10px;
+            object-fit: cover; 
+            vertical-align: middle; 
+            border: 1px solid black; 
+            display: inline-block; 
+            margin: 10px 0 10px 10px;
         }
 
         .post-title {
@@ -79,39 +102,37 @@
     </style>
 
     <body>
-    {% if blogposts %}
+        {% if blog_posts_with_avatars %}
         <ul class="blog-post-list">
-            {% for post in blogposts %}
+            {% for post, avatar_info in blog_posts_with_avatars %}
                 <li class="blog-post-container">
                     <div class="author-info">
-
-                        {% if post.avatar %}
+                        {% if avatar_info %}
                             <a href="#!" class="nav-link">
-                                <img src="{{ post.avatar.imagen.url }}" alt="User Avatar" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
-                                <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                                <img src="{{ avatar_info.imagen.url }}" alt="User Avatar" class="author-avatar">
+                                <p class="author-name">{{ post.autor }}</p>
                             </a>
                         {% else %}
-                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" style="height: 40px; width: auto; border-radius: 50%; vertical-align: middle; border: 2px solid black; display: inline-block;  margin: 10px 0 10px 10px;">
-                            <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" class="author-avatar">
+                            <p class="author-name">{{ post.autor }}</p>
                         {% endif %}
-                        
                     </div>
                     {% if post.post_image %}
                         <img src="{{ post.post_image.url }}" alt="Blog Post Image" class="post-image">
                     {% else %}
-                        <p style="margin-left: 20px;" class="no-picture">No picture available</p>
+                        <p class="no-picture">No picture available</p>
                     {% endif %}
                     <h2 class="post-title">{{ post.titulo }}</h2>
                     <p class="post-content">{{ post.contenido|truncatechars:100 }}</p>
                     <p class="read-more-label">Read More</p>
-                    <p class="post-meta">
-                        {{ post.fecha }}
-                    </p>
+                    <p class="post-meta">{{ post.fecha }}</p>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No blog posts available.</p>
+        <div class="message-box">
+            <p class="message-text">No blog posts available.</p>
+        </div>
     {% endif %}
 </body>
 
@@ -121,3 +142,16 @@
 {% block contenido2 %}
 
 {% endblock contenido2 %}
+
+
+
+
+{% if avatar_info %}
+                            <a href="#!" class="nav-link">
+                                <img src="{{ avatar_info.image.url }}" alt="User Avatar" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 1px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                                <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                            </a>
+                        {% else %}
+                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" style="height: 40px; width: auto; border-radius: 50%; vertical-align: middle; border: 1px solid black; display: inline-block;  margin: 10px 0 10px 10px;">
+                            <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
+                        {% endif %}
