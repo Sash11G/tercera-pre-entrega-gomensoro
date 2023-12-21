@@ -1,0 +1,136 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+
+{% block contenido1 %}
+    <!-- cliente/blogpost_detail.html -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .blogpost-detail {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 20px auto;
+        }
+
+
+
+        .author-username {
+            display: inline-block; 
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover; 
+            vertical-align: middle; 
+            border: 1px solid black; 
+            display: inline-block; 
+            margin: 10px 0 10px 10px;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #800080; /* Dark Purple */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease; /* Add a smooth transition effect for color */
+        }
+
+        .back-link:hover {
+            color: #B8860B; /* Dark Goldenrod - Adjust the color as needed */
+            text-decoration: none;
+        }
+    </style>
+
+    <body>
+        <div class="blogpost-detail">
+            <h1>{{ blog_post.titulo }}</h1>
+            <h3>{{ blog_post.subtitulo }}</h3>
+            <div class="author-info">
+                <!-- Display the author's avatar -->
+                
+                {% if avatar %}
+                    <a href="#!" class="nav-link">
+                        <img src="{{ avatar.imagen.url }}" alt="User Avatar" class="author-avatar">
+                        <p class="author-username">{{ blog_post.autor.username }}</p>
+                    </a>
+                {% else %}
+                    <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" class="author-avatar">
+                    <p class="author-name">{{ post.autor }}</p>
+                {% endif %}
+
+
+                
+                <!-- Display the author's username -->
+            
+                <!-- Display the date -->
+                <p class="post-date">{{ blog_post.fecha | date:"F d, Y" }}</p>
+            </div>
+
+            <!-- Display the post image if available -->
+            {% if blog_post.post_image %}
+                <img src="{{ blog_post.post_image.url }}" alt="{{ blog_post.titulo }} Image" class="post-image">
+            {% endif %}
+
+            <div class="content">
+                <p>{{ blog_post.contenido|linebreaks }}</p>
+
+                <!-- Display categories if available -->
+                {% if blog_post.categoria.all %}
+                    <h2>Categories:</h2>
+                    <ul>
+                        {% for category in blog_post.categoria.all %}
+                            <li>{{ category.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <!-- Add other content as needed -->
+
+            <a href="{% url 'cliente:blogpost-list' %}" class="back-link">Back to Blog Post List</a>
+        </div>
+    </body>
+{% endblock contenido1 %}
+
+{% block contenido2 %}
+    
+{% endblock contenido2 %}

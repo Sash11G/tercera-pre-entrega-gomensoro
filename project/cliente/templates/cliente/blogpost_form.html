@@ -115,7 +115,7 @@
 <body>
     
     
-    <form method="post" action="{% url 'cliente:create-blog-post' %}" method="POST" enctype="multipart/form-data">
+    <form method="post" action="{% url 'cliente:blogpost-create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>BLOG POST</h2>
         {{ form.as_p }}

@@ -10,7 +10,7 @@
             margin: 0;
         }
 
-        .blog-post-list {
+        .blogpost-list {
             list-style-type: none;
             padding: 0;
             margin: 30px;
@@ -18,7 +18,6 @@
             flex-direction: column;
             align-items: center;
         }
-
 
         .message-box {
             background-color: #fff;
@@ -49,6 +48,18 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
+        }
+
+        .blog-post-container:hover {
+            background-color: #e0e0e0; /* Change the background color on hover */
+        }
+
+        .blog-post-link:hover,
+        .blog-post-link:hover h2.post-title,
+        .blog-post-link:hover p.post-content {
+            text-decoration: none;
+            color: #333; /* Change the text color when not hovered */
         }
 
         .author-name {
@@ -72,18 +83,32 @@
             font-weight: bold;
             margin: 10px 20px 0;
         }
+        
+        .post-subtitle {
+            font-size: 18px;
+
+            margin: 10px 20px 0;
+        }
+
 
         .post-content {
             margin: 10px 20px;
             color: rgba(169, 169, 169, 0.9);
         }
         .read-more-label {
-            color: #007bff; 
-            font-weight: bold; 
+            display: block;
             margin: 10px 20px 0;; 
+            color: #800080; /* Dark Purple */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease; /* Add a smooth transition effect for color */
         }
-        
+   
 
+        .read-more-label:hover {
+            color: #B8860B; /* Dark Goldenrod - Adjust the color as needed */
+            text-decoration: none;
+        }
 
         .post-meta {
             color: #888;
@@ -100,10 +125,9 @@
             object-fit: cover;
         }
     </style>
-
     <body>
         {% if blog_posts_with_avatars %}
-        <ul class="blog-post-list">
+        <ul class="blogpost-list">
             {% for post, avatar_info in blog_posts_with_avatars %}
                 <li class="blog-post-container">
                     <div class="author-info">
@@ -117,25 +141,33 @@
                             <p class="author-name">{{ post.autor }}</p>
                         {% endif %}
                     </div>
-                    {% if post.post_image %}
-                        <img src="{{ post.post_image.url }}" alt="Blog Post Image" class="post-image">
-                    {% else %}
-                        <p class="no-picture">No picture available</p>
-                    {% endif %}
-                    <h2 class="post-title">{{ post.titulo }}</h2>
-                    <p class="post-content">{{ post.contenido|truncatechars:100 }}</p>
-                    <p class="read-more-label">Read More</p>
-                    <p class="post-meta">{{ post.fecha }}</p>
+                    <a href="{% url 'cliente:blogpost-detail' pk=post.pk %}" class="blog-post-link">
+                        <div class="blog-post-content">
+                            {% if post.post_image %}
+                                <img src="{{ post.post_image.url }}" alt="Blog Post Image" class="post-image">
+                            {% else %}
+                                <p class="no-picture">No picture available</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                
+                    <div class="blog-post-details">
+                        <h2 class="post-title">{{ post.titulo }}</h2>
+                        <h4 class="post-subtitle">{{ post.subtitulo }}</h4>
+                        
+                        <p class="post-content">{{ post.contenido|truncatechars:100 }}</p>
+                        <a href="{% url 'cliente:blogpost-detail' pk=post.pk %}" class="read-more-label">Read More</a>
+                        <p class="post-meta">{{ post.fecha }}</p>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <div class="message-box">
-            <p class="message-text">No blog posts available.</p>
-        </div>
-    {% endif %}
-</body>
-
+        {% else %}
+            <div class="message-box">
+                <p class="message-text">No blog posts available.</p>
+            </div>
+        {% endif %}
+    </body>
 
 {% endblock contenido1 %}
 
@@ -145,13 +177,3 @@
 
 
 
-
-{% if avatar_info %}
-                            <a href="#!" class="nav-link">
-                                <img src="{{ avatar_info.image.url }}" alt="User Avatar" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 1px solid black; display: inline-block; margin: 10px 0 10px 10px;">
-                                <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
-                            </a>
-                        {% else %}
-                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" style="height: 40px; width: auto; border-radius: 50%; vertical-align: middle; border: 1px solid black; display: inline-block;  margin: 10px 0 10px 10px;">
-                            <p class="author-name" style="display: inline-block; margin-left: 10px; font-weight: bold;">{{ post.autor }}</p>
-                        {% endif %}
