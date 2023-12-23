@@ -18,21 +18,50 @@ class UserCreationFormulario(UserCreationForm):
 
 
 
-
 class UserEditionFormulario(UserChangeForm):
     email = forms.EmailField(required=False)
     first_name = forms.CharField(label="Name", required=False)
     last_name = forms.CharField(label="Last Name", required=False)
 
+    delete_avatar = forms.BooleanField(
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={'class': 'delete-avatar-checkbox'}),
+    )
+
     class Meta:
         model = UserModel
-        fields = ["email", "first_name", "last_name"]
+        fields = ["email", "first_name", "last_name", "delete_avatar"]
         help_texts = {k: "" for k in fields}
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Exclude password fields if needed
         self.fields.pop('password', None)
+
+
+
+# class UserEditionFormulario(UserChangeForm):
+#     email = forms.EmailField(required=False)
+#     first_name = forms.CharField(label="Name", required=False)
+#     last_name = forms.CharField(label="Last Name", required=False)
+#     delete_avatar = forms.BooleanField(
+#         required=False,
+#         initial=False,
+#         widget=forms.CheckboxInput(attrs={'class': 'delete-avatar-checkbox'}),  # Add a class to style the checkbox
+#     )
+
+#     class Meta:
+#         model = UserModel
+#         fields = ["email", "first_name", "last_name", "delete_avatar"]
+#         help_texts = {k: "" for k in fields}
+
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         # Exclude password fields if needed
+#         self.fields.pop('password', None)
+
+
 
 class UserAvatarFormulario(forms.ModelForm):
 
@@ -83,3 +112,14 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             self._errors.pop('new_password2', None)
 
         return cleaned_data
+    
+
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.UserProfile
+        fields = ['bio']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4, 'cols': 50}),
+        }

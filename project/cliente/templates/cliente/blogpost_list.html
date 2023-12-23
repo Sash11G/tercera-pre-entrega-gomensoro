@@ -94,6 +94,7 @@
         .post-content {
             margin: 10px 20px;
             color: rgba(169, 169, 169, 0.9);
+            word-wrap: break-word;
         }
         .read-more-label {
             display: block;
@@ -120,8 +121,8 @@
         }
 
         .post-image {
-            width: 600px;
-            height: auto;
+            max-width: 100%; /* Ensure the image doesn't exceed its container's width */
+            height: auto;   /* Maintain the image's aspect ratio */
             object-fit: cover;
         }
     </style>

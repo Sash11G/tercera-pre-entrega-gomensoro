@@ -1,0 +1,31 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+<!-- profile_template.html -->
+
+
+{% block contenido1 %}
+
+
+<div>
+    <h2>{{ user_profile.user.username }}</h2>
+    <p>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</p>
+    <p>Bio: {{ user_profile.bio }}</p>
+    
+    {% if avatar %}
+        <img src="{{ avatar.imagen.url }}" alt="User Avatar"
+                style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+    {% else %}
+        <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar"
+                style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+    {% endif %}
+  </div>
+
+
+{% endblock contenido1 %}
+
+
+
+{% block contenido2 %}
+    
+{% endblock contenido2 %}

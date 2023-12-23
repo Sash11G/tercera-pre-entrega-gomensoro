@@ -122,43 +122,21 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>Edit Profile</h2>
+            <!-- Avatar Section -->
             <div class="form-section avatar-section">
                 {% if avatar %}
-                    <img src="{{ avatar.imagen.url }}" alt="User Avatar"
-                         style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                    <img src="{{ avatar.imagen.url }}" alt="User Avatar" style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
                 {% else %}
-                    <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar"
-                         style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
+                    <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover; vertical-align: middle; border: 2px solid black; display: inline-block; margin: 10px 0 10px 10px;">
                 {% endif %}
                 {{ avatar_form.as_p }}
             </div>
-            <!-- Delete Avatar Checkbox -->
-            <label for="{{ profile_form.delete_avatar.id_for_label }}" class="delete-avatar-label">Delete Avatar</label>
-            {{ profile_form.delete_avatar }}
 
             <!-- Profile Section -->
             <div class="form-section">
                 <h3>Profile Information</h3>
                 <table>
                     {% for field in profile_form %}
-                    {% if field.name != "delete_avatar" %}
-                        <tr>
-                            <td colspan="2">
-                                <strong>{{ field.label_tag }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ field }}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </table>
-            </div>
-            <!-- Bio Section -->
-            <div class="form-section">
-                <h3>Bio Information</h3>
-                <table>
-                    {% for field in bio_form %}
                         <tr>
                             <td colspan="2">
                                 <strong>{{ field.label_tag }}</strong>
@@ -170,6 +148,7 @@
                     {% endfor %}
                 </table>
             </div>
+
             <!-- Password Section -->
             <div class="form-section">
                 <h3>Password Change</h3>

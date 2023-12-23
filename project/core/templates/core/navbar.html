@@ -49,7 +49,7 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:logout' %}">
-                            <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                            <form class="blogpost-form" method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="nav-logout-btn">Logout</button>
                             </form>
@@ -59,13 +59,16 @@
                     
                     {% if user_avatar %}
 
-                        <a href="#!" class="nav-link">
+                        <a href="{% url 'accounts:editar-perfil' %}" class="nav-link">
                             <img src="{{ user_avatar.imagen.url }}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
 
                         </a>
                     {% else %}
-                    
-                        <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
+                        <a href="{% url 'accounts:editar-perfil' %}" class="nav-link">
+                            <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
+
+                        </a>
+                        
                 {% endif %}
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>

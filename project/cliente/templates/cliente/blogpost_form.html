@@ -18,7 +18,7 @@
             color: #333;
         }
     
-        form {
+        form:not(.blogpost-form) {
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
@@ -117,7 +117,7 @@
     
     <form method="post" action="{% url 'cliente:blogpost-create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h2>BLOG POST</h2>
+        <h2>CREATE POST</h2>
         {{ form.as_p }}
         <input type="submit" value="Submit">
     </form>

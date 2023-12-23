@@ -42,9 +42,11 @@ def create_blog_post(request):
         form = BlogPostForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
+            print(data)  # Debugging
 
             new_blog_post = BlogPost(
                 titulo=data["titulo"],
+                subtitulo=data["subtitulo"],
                 contenido=data["contenido"],
                 post_image=data["post_image"],
                 autor=request.user
@@ -96,30 +98,7 @@ class BlogPostDetailView(DetailView):
         print(context)
         return context
     
-
-# just rendering update view
-    
-# def blogpost_update(request, pk):
-#     blog_post_form = BlogPostForm()
-
-#     context = {
-#         'form': blog_post_form,
-#     }
-
-#     return render(request, 'cliente/blogpost_update.html', context)
-
-
-# class BlogPostUpdateView(UpdateView):
-#     model = BlogPost
-#     form_class = BlogPostForm
-#     template_name = 'cliente/blogpost_update.html'
-#     success_url = reverse_lazy('cliente:blogpost-list')  # Redirect to the blog post list upon successful update
-
-#     def form_valid(self, form):
-#         # You can add any additional logic here if needed
-#         print(f"ID: {self.kwargs['pk']}")
-#         return super().form_valid(form)
-    
+ 
 
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
