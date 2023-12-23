@@ -64,7 +64,7 @@
 
                         </a>
                     {% else %}
-                        <a href="{% url 'accounts:editar-perfil' %}" class="nav-link">
+                        <a href="{% url 'accounts:view-profile' username=user.username %}" class="nav-link">
                             <img src="{% static 'core/img/default_user.jpg' %}" alt="User Avatar" style="margin-left: 10px; height: 40px; width: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle;">
 
                         </a>
