@@ -130,8 +130,8 @@ def crear_avatar_view(request):
 
 
 @login_required
-def editar_perfil_view(request):
-    usuario = request.user
+def editar_perfil_view(request, username):
+    usuario = get_object_or_404(User, username=username)
     avatar = Avatar.objects.filter(user=usuario).last()
     avatar_url = avatar.imagen.url if avatar is not None else ""
 
@@ -192,7 +192,7 @@ def editar_perfil_view(request):
 
             usuario.save()
             bio_form.save()
-            return redirect("core:index")
+            return redirect('accounts:view-profile', username=username)
 
     return render(
         request,

@@ -1,6 +1,6 @@
 
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import BlogPostForm
 from .models import BlogPost
@@ -99,18 +99,28 @@ class BlogPostDetailView(DetailView):
         return context
     
  
-
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'cliente/blogpost_update.html'
     success_url = reverse_lazy('cliente:blogpost-list')
 
+    def form_valid(self, form):
+        action = self.request.POST.get('action')
+
+        if action == 'Update Post':
+            return super().form_valid(form)
+        elif action == 'Delete Post':
+            self.object.delete()
+            return redirect('cliente:blogpost-list')
+        else:
+            # Handle other actions or provide an error message
+            pass
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blog_post'] = self.get_object()  # Add the blog post instance to the context
+        context['blog_post'] = self.get_object()
         return context
 
-    def form_valid(self, form):
-        print(f"ID: {self.kwargs['pk']}")
-        return super().form_valid(form)
+    ## blog delete ##
+

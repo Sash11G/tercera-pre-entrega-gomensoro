@@ -14,6 +14,7 @@ urlpatterns = [
     path('blogposts/<int:pk>/update/', views.BlogPostUpdateView.as_view(), name='blogpost-update'),
 
 
+
     
     
 ]

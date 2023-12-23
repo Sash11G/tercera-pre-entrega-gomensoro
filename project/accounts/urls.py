@@ -12,7 +12,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", LogoutView.as_view(template_name="accounts/logout.html"), name="logout"),
     #### EDITAR USUARIO ####
-    path("editar-perfil", views.editar_perfil_view, name="editar-perfil"),
+    path("editar-perfil/<str:username>/", views.editar_perfil_view, name="editar-perfil"),
     path('profiles/<str:username>/', views.view_profile, name='view-profile'),
     # path('<int:user_id>/password/', views.change_password, name='change-password'),
 ]

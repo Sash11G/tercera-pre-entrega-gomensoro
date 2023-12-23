@@ -49,6 +49,7 @@
             display: flex;
             flex-direction: column;
             transition: background-color 0.3s ease;
+            position: relative;
         }
 
         .blog-post-container:hover {
@@ -68,7 +69,7 @@
             margin-left: 10px;
         }
         .author-avatar {
-            width: auto;
+            width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover; 
@@ -76,6 +77,38 @@
             border: 1px solid black; 
             display: inline-block; 
             margin: 10px 0 10px 10px;
+        }
+
+
+        .edit-post-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #3498db; /* You can adjust the color as needed */
+            text-decoration: none;
+        }
+
+        .edit-post-button img {
+            max-width: 20px; /* Adjust the size of the image as needed */
+            max-height: 20px;
+            vertical-align: middle;
+        }
+
+        .edit-post-button span {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            bottom: 100%; /* Adjust the positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .edit-post-button:hover span {
+            display: block;
         }
 
         .post-title {
@@ -133,13 +166,28 @@
                 <li class="blog-post-container">
                     <div class="author-info">
                         {% if avatar_info %}
-                            <a href="#!" class="nav-link">
-                                <img src="{{ avatar_info.imagen.url }}" alt="User Avatar" class="author-avatar">
-                                <p class="author-name">{{ post.autor }}</p>
+                            <a href="{% url 'accounts:view-profile' username=post.autor %}" class="nav-link">
+                                <div class="avatar-container">
+                                    <img src="{{ avatar_info.imagen.url }}" alt="User Avatar" class="author-avatar">
+                                    <p class="author-name">{{ post.autor }}</p>
+                                </div>
                             </a>
                         {% else %}
-                            <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" class="author-avatar">
-                            <p class="author-name">{{ post.autor }}</p>
+                            <div class="avatar-container">
+                                <img src="{% static 'core/img/default_user.jpg' %}" alt="Default User Avatar" class="author-avatar">
+                                <p class="author-name">{{ post.autor }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser or post.autor == user %}
+                                <a href="{% url 'cliente:blogpost-update' post.id %}" class="edit-post-link">
+                                    <button class="edit-post-button">
+                                        <img src="{% static 'core/img/edit_icon.png' %}" alt="Edit Icon">
+                                        <span>Edit Post</span>
+                                    </button>
+                                </a>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <a href="{% url 'cliente:blogpost-detail' pk=post.pk %}" class="blog-post-link">
