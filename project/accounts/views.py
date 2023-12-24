@@ -131,9 +131,14 @@ def crear_avatar_view(request):
 
 @login_required
 def editar_perfil_view(request, username):
+
     usuario = get_object_or_404(User, username=username)
     avatar = Avatar.objects.filter(user=usuario).last()
     avatar_url = avatar.imagen.url if avatar is not None else ""
+
+    if request.user.username != username and not request.user.is_superuser:
+    # Redirect to another URL or display an error message
+        return redirect('core:index')  # Adjust 'another-url' to your desired URL
 
     if request.method == "GET":
         avatar_form = UserAvatarFormulario()
